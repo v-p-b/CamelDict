@@ -29,9 +29,9 @@ def combine_words(w,l):
 def main():
     parser=argparse.ArgumentParser(description='Generate CamelCase wordlists')
     parser.add_argument('wordlists',metavar='wordlist',nargs='+', help='wordlists containing words to construct the CamelCase words from')
-    parser.add_argument('--prefix', metavar='prefix_wordlist', nargs=1, help="wordlist of prefix words (always lowercase at the begining of the words)")
-    parser.add_argument('--length', nargs=1, required=True, type=int)
-    parser.add_argument('--postfix', nargs=1, help='postfix words')
+    parser.add_argument('--prefix', nargs=1, help="wordlist file or comma separated list of prefix words (always lowercase at the begining of the words)")
+    parser.add_argument('--length', nargs=1, required=True, type=int, help="number of words to combine")
+    parser.add_argument('--postfix', nargs=1, help='wordlist file or comma separated list of postfix words')
     args = parser.parse_args()
 
     prefix_words=[]

@@ -1,0 +1,1 @@
+During my last pentest project there was a need for a wordlist file to enumerate Java method names like getSomethingImportant() or setAnotherDangerousStuff(). This script generates such names from other wordlists. I was hung over when I wrote it, so it is a bit messy, sorry about that.
