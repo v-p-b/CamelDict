@@ -15,9 +15,17 @@ def list_from_arg(a,class_name=False):
 
     return ret
 
-def combine_words(w,l,class_name=True):
-    tuples=itertools.product(w,repeat=l)
+def combine_words(w,length=1,class_name=True):
+    
+    tuples=[]
+
+    if length<1:
+        tuples=itertools.product(*w)
+    else:
+        tuples=itertools.product(w,repeat=length)
+    
     ret=[]
+
     if class_name:
         for t in tuples:
             word=''
@@ -30,13 +38,13 @@ def combine_words(w,l,class_name=True):
             for x in t[1:]:
                 word+=x.capitalize()
             ret.append(word)
-    return ret 
+    return ret     
 
 def main():
     parser=argparse.ArgumentParser(description='Generate CamelCase wordlists')
     parser.add_argument('wordlists',metavar='wordlist',nargs='+', help='wordlists containing words to construct the CamelCase words from')
     parser.add_argument('--prefix', nargs=1, help="wordlist file or comma separated list of prefix words (always lowercase at the begining of the words)")
-    parser.add_argument('--length', nargs=1, required=True, type=int, help="number of words to combine")
+    parser.add_argument('--length', nargs=1, required=True, type=int, help="number of single words to combine. if <1, the length will be the number of wordlists and every single words position is fixed at its wordlists position ")
     parser.add_argument('--postfix', nargs=1, help='wordlist file or comma separated list of postfix words')
     parser.add_argument('--classname', action='store_true', help='generate class-style names (first character uppercase)')
     args = parser.parse_args()
@@ -44,9 +52,16 @@ def main():
     prefix_words=[]
     postfix_words=[]
 
-    words=[line.strip() for wl in args.wordlists for line in open(wl)]
+    words=[]
 
-
+    if args.length[0]>=1:
+        words=[line.strip() for wl in args.wordlists for line in open(wl)]
+    else:
+        for wl in args.wordlists:
+            lst=[]
+            for line in open(wl):
+                lst.append(line.strip())
+            words.append(lst)
 
     if args.prefix is not None:
         prefix_words=list_from_arg(args.prefix[0],args.classname)
