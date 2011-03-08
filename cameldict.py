@@ -3,12 +3,8 @@ import itertools
 import os.path
 
 def list_from_arg(a):
-    ret=[]
-     
     if os.path.exists(a):
-        l=open(a)
-        for line in l:
-            ret.append(line.strip())
+        ret=[line.strip() for line in open(a)]
     else:
         ret=a.split(',')
     
@@ -36,12 +32,8 @@ def main():
 
     prefix_words=[]
     postfix_words=[]
-    words=[]
 
-    for wl in args.wordlists:
-        l=open(wl)
-        for line in l:
-            words.append(line.strip())
+    words=[line.strip() for wl in args.wordlists for line in open(wl)]
     
     words_combined=combine_words(words,args.length[0])
 
