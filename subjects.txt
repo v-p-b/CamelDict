@@ -10,7 +10,7 @@ block
 bonus
 category
 cert
-cerificate
+certificate
 change
 description
 details
