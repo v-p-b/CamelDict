@@ -4,3 +4,7 @@ update
 export
 import
 do
+modify
+put
+push
+pull
